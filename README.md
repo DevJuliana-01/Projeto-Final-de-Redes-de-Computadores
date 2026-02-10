@@ -30,18 +30,18 @@ Observação: abaixo os itens da lista do professor com o estado atual baseado n
 	- Detalhamento de um cliente selecionado (0,5): ❌️ — não existe interface interativa para detalhar um cliente específico.
 	- Exportação de relatórios em CSV/JSON (0,5): ❌️ — não há funções de exportação (embora `csv` esteja importado no servidor, não é usado).
 
-- 3. Requisitos principais
+- 3.0. Requisitos principais
 	- Arquitetura Cliente/Servidor (1,0): ✅️
 	- Descoberta automática na LAN (broadcast/multicast/hello) (1,0): ✅️ atenção: em `cliente.py` o `BROADCAST_ADDR` está definido como `127.0.0.1` por padrão (para testes locais) — para descoberta em LAN real alterar para `255.255.255.255` ou endereço de broadcast da sub-rede.
 	- Uso de sockets puros (TCP/UDP) (1,0): ✅️ (uso de sockets UDP para hello e TCP para dados).
 	- Paradigma Orientado a Objetos, código modular (1,0): ✅️ (`Cliente` e `Servidor` classes).
 
-- 4. Segurança
+- 4.0. Segurança
 	- Comunicação segura (criptografia/integridade) (0,5): ❌️
 	- Autenticação e controle de acesso (0,3): ❌️
 	- Auditoria no servidor (0,2): ❌️
 
-- 5. Bônus
+- 5.0. Bônus
 	- Controle remoto do mouse (1,0): ❌️
 	- Controle remoto do teclado (1,0): ❌️
 
