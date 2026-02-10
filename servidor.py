@@ -8,7 +8,7 @@ import ast
 BROADCAST_PORT = 50000
 
 # Tempo máximo sem HELLO para considerar OFFLINE
-TIMEOUT = 10
+TIMEOUT = 30
 
 
 # -------------------------------------------------
