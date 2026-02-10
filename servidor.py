@@ -8,7 +8,7 @@ import ast
 BROADCAST_PORT = 50000
 
 # Tempo máximo sem HELLO para considerar OFFLINE
-TIMEOUT = 30
+TIMEOUT = 10
 
 
 # -------------------------------------------------
@@ -36,6 +36,7 @@ class Servidor:
     def escutar_broadcast(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.bind(("", BROADCAST_PORT))
+        print(f"[SERVIDOR] Escutando na porta {BROADCAST_PORT}...")
 
         while True:
             msg, addr = sock.recvfrom(1024)
@@ -44,12 +45,15 @@ class Servidor:
             # Extrai a porta TCP do cliente
             port = int(msg.decode().split("=")[1])
 
+            # Usa IP:PORTA como chave única para cada cliente
+            chave_cliente = f"{ip}:{port}"
+            
             # Se for um novo cliente, adiciona
-            if ip not in self.clientes:
-                self.clientes[ip] = ClienteInfo(ip, port)
-
+            if chave_cliente not in self.clientes:
+                self.clientes[chave_cliente] = ClienteInfo(ip, port)
+                print(f"[SERVIDOR] Novo cliente: {chave_cliente}")
             # Atualiza o último HELLO recebido
-            self.clientes[ip].last_seen = time.time()
+            self.clientes[chave_cliente].last_seen = time.time()
 
     # -------------------------------------------------
     # Coleta dados dos clientes via TCP

@@ -9,7 +9,8 @@ import uuid
 BROADCAST_PORT = 50000
 
 # Endereço de broadcast (envia para toda a LAN)
-BROADCAST_ADDR = "255.255.255.255"
+# BROADCAST_ADDR = "255.255.255.255"
+BROADCAST_ADDR = "127.0.0.1"
 
 # Intervalo entre os HELLO (em segundos)
 HELLO_INTERVAL = 5
@@ -63,7 +64,7 @@ class Cliente:
         }
 
     # -------------------------------------------------
-    # Envia HELLO via broadcast UDP
+    # Envia HELLO para o `servidor.py` via broadcast UDP
     # -------------------------------------------------
     def enviar_hello(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -108,15 +109,15 @@ class Cliente:
     def start(self):
         print(f"[CLIENTE] Escutando TCP na porta {self.tcp_port}")
 
-        # Thread para enviar HELLO
         threading.Thread(target=self.enviar_hello, daemon=True).start()
-
-        # Thread para escutar conexões TCP
         threading.Thread(target=self.servidor_tcp, daemon=True).start()
 
-        # Mantém o programa ativo
-        while True:
-            time.sleep(1)
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            self.running = False
+            print("[CLIENTE] Encerrando...")
 
 
 if __name__ == "__main__":
